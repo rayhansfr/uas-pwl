@@ -1,0 +1,45 @@
+.navbar-brand, .title {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+#hero {
+    background: url(assets/bg-home.jpg);
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+}
+
+.card-cover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.card-cover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+}
+
+.card-cover .text-white {
+    z-index: 1;
+}
+
+.btn-ppdb {
+    background-color: #163153;
+    color: #fff;
+}
+
+.btn-ppdb:hover {
+    background-color: #fff;
+    color: #163153;
+    border: 1px solid #163153; 
+}
