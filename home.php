@@ -37,7 +37,7 @@
             <h1 class="display-5 fw-bold lh-1 mb-3">Pendidikan Berbasis Al-Quran</h1>
             <p class="lead">Transformasi spiritual melalui pendekatan holistik: Akidah dan akhlak mulia, pemberantasan buta huruf Al-Quran, cinta Kitab Suci, serta persiapan membaca Al-Quran yang baik dan benar. Bergabunglah untuk membentuk masa depan bercahaya bersama kami!</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-              <button type="button" class="btn btn-ppdb btn-lg px-4 me-md-2">Informasi PPDB</button>
+              <button type="button" class="btn btn-cust btn-lg px-4 me-md-2">Informasi PPDB</button>
               <a href="#program-unggulan">
                 <button type="button" class="btn btn-outline-secondary btn-lg px-4">Program Unggulan</button>
               </a>

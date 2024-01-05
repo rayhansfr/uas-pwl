@@ -33,13 +33,21 @@ body {
     z-index: 1;
 }
 
-.btn-ppdb {
+.btn-cust {
     background-color: #163153;
     color: #fff;
 }
 
-.btn-ppdb:hover {
+.btn-cust:hover {
     background-color: #fff;
     color: #163153;
     border: 1px solid #163153; 
+}
+
+.footer-sm {
+    background-color: #163153;
+}
+
+.footer-cr {
+    background-color: rgba(0, 0, 0, 0.2);
 }
