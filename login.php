@@ -1,5 +1,48 @@
 <?php
 
+session_start();
+include "controller/connection.php";
+
+if (isset($_SESSION["login"])) {
+    header("location:dashboard.php");
+}
+
+if (isset($_POST["login"])) { // jika button login ditekan maka lakukan code blok dibawah
+    // inisialisasi nilai varianle dari inputan user
+    if (isset($_POST['captcha']) && $_SESSION['captcha_string'] === $_POST['captcha']) {
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        // query select data berdasarkan username yang diinput user
+        $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
+        if (mysqli_num_rows($result) === 1) { // cek apakah terdapat username dengan username yang sama dari inputan user
+            $row = mysqli_fetch_array($result);
+            // cek apakah password yang diinput cocok dengan password yang di-hash yang disimpan di database
+            if (password_verify($password, $row["password"])) {
+                // jika sama maka lakukan code block dibawah
+                $_SESSION["username"] = $username; // pass variable username agar dapoat digunakan di halaman lain
+                $_SESSION["login"] = true; // tandai bahwa user telah login
+                header("location:dashboard.php"); // arahkan user ke halaman index
+            } else { // jika password tidak sesuai berikan alert
+                alert("danger", "Wrong Username or Password");
+            }
+        } else { // jika tidak ada username di tabel maka berikan alert
+            alert("danger", "Username Does'nt Exist");
+        }
+    } else {
+        alert("danger", "Wrong Captcha");
+    }
+}
+
+// alert message
+function alert($type, $message)
+{
+    echo
+    "<div class=\"alert alert-$type alert-dismissible fade show\" role=\"alert\">
+        <strong>$message</strong> 
+        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+    </div>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,17 +73,27 @@
                     </div>
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="true">Sign In</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="register.php">Sign Up</a>
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="card-body py-5 px-md-5">
-                                <form>
+                                <form id="form-login" method="POST" action="">
                                     <!-- Username -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="username">Username</label>
-                                        <input type="text" id="username" class="form-control" />
+                                        <input type="text" id="username" name="username" class="form-control" />
                                     </div>
                                     <!-- Password -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" class="form-control" />
+                                        <input type="password" id="password" name="password" class="form-control" />
                                     </div>
                                     <!-- Captcha -->
                                     <div class="mb-3">
@@ -49,7 +102,7 @@
                                         <input type="text" id="captcha" name="captcha" required>
                                     </div>
                                     <!-- Submit -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    <button type="submit" name="login" class="btn btn-primary btn-block mb-4">
                                         Login
                                     </button>
                                 </form>
@@ -60,6 +113,7 @@
             </div>
         </div>
     </section>
+
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/0caa192f1e.js" crossorigin="anonymous"></script>
     <!-- bootstrap -->
