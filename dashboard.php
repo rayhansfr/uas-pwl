@@ -41,62 +41,33 @@ $menuItems = [
 </head>
 
 <body>
-    <div class="d-flex">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-login" style=" width: 280px;">
-            <a href="home.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <span class="fs-4">PAUDQu</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto ">
-                <?php foreach ($menuItems as $menuItem) : ?>
-                    <li class="nav-item">
-                        <a href=" <?= $menuItem['link'] ?>" class="nav-link text-white <?= ($currentPage == $menuItem['link']) ? 'active' : '' ?>">
-                            <i class="fas fa-solid <?= $menuItem['icon'] ?>"></i>
-                            <?= $menuItem['text'] ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-            <div class="dropdown user-center">
-                <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?php
-                    echo '<strong>' . $username . '</strong>'
-                    ?>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+    <?php include "components/sideNavbar.php" ?>
 
-        <main class="flex-shrink-0">
-            <!-- Your content goes here -->
-            <h1 class="mt-2">Dashboard</h1>
-        </main>
-        <!-- modal -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Are you sure want to logout?</h5>
-                    </div>
-                    <div class="modal-body">
-                        Your session will be ended
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-outline-danger" href="logout.php">Logout</a>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
+    <main class="flex-shrink-0">
+        <!-- Your content goes here -->
+        <h1 class="mt-2">Dashboard</h1>
+    </main>
+    <!-- modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Are you sure want to logout?</h5>
+                </div>
+                <div class="modal-body">
+                    Your session will be ended
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-outline-danger" href="logout.php">Logout</a>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
-        <!-- font awesome -->
-        <script src="https://kit.fontawesome.com/0caa192f1e.js" crossorigin="anonymous"></script>
-        <!-- bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </div>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/0caa192f1e.js" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>
