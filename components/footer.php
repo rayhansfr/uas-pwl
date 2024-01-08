@@ -24,7 +24,7 @@
         </section>
     </div>
     
-    <div class="text-center p-3 footer-cr">
+    <div class="text-center p-3" style="background-color: #1a1a1a;">
         © 2024 Copyright: Hilmi, Athiya & Rayhan.
     </div>
 </footer>

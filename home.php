@@ -20,7 +20,7 @@
                   <div class="title">
                     <h1 class="display-5 fw-bold lh-1 mb-3">PAUDQu Assabiqunal Awwalun</h1>
                   </div>
-                  <p class="lead">Mendidik Generasi Unggul, Cerdas, dan Qurani untuk Membangun Masa Depan Berkualitas</p>
+                  <p class="lead row-cols-lg-2">Mendidik Generasi Unggul, Cerdas, dan Qurani untuk Membangun Masa Depan Berkualitas</p>
               </div>
           </div>
       </div>

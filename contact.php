@@ -122,7 +122,7 @@
                                             <h4 class="mb-2">Telepon</h4>
                                             <hr class="w-50 mb-3 border-dark-subtle">
                                             <p class="mb-0">
-                                                <a class="link-secondary text-decoration-none" href="tel:+6289630593213">0896-3059-3213</a>
+                                                <a class="link-secondary text-decoration-none" href="tel:+6282127050296">(+62)821-2705-0296</a>
                                             </p>
                                         </div>
                                     </div>
@@ -160,12 +160,12 @@
                                     <h4 class="mb-2">Jam Operasional</h4>
                                     <hr class="w-50 mb-3 border-dark-subtle">
                                     <div class="d-flex mb-1">
-                                        <p class="text-secondary fw-bold mb-0 me-5">Senin - Kamis</p>
-                                        <p class="text-secondary mb-0">9am - 5pm</p>
+                                        <p class="text-secondary fw-bold mb-0 me-5">Senin-Jumat :</p>
+                                        <p class="text-secondary mb-0">08.00 - 16.00</p>
                                     </div>
                                     <div class="d-flex">
-                                        <p class="text-secondary fw-bold mb-0 me-5">Jumat - Sabtu</p>
-                                        <p class="text-secondary mb-0">9am - 2pm</p>
+                                        <p class="text-secondary fw-bold mb-0 me-5">Sabtu :</p>
+                                        <p class="text-secondary mb-0">09.00 - 15.00</p>
                                     </div>
                                 </div>
                             </div>
