@@ -40,7 +40,9 @@
                 <div class="col-md-7">
                     <h2 class="featurette-heading">Mengisi Formulir</h2>
                     <p class="lead">Orang tua murid mengisi Formulir Penerimaan Peserta Didik Baru melalui website kami atau klik tombol dibawah ini untuk mengakses Formulir.</p>
-                    <button type="button" class="btn btn-cust btn-lg px-4 me-md-2">Formulir Pendaftaran</button>
+                    <a href="pendaftaran.php">
+                        <button type="button" class="btn btn-cust btn-lg px-4 me-md-2">Formulir Pendaftaran</button>
+                    </a>
                 </div>
             </div>
 
@@ -133,7 +135,6 @@
     </section>
 
     <?php include 'components/footer.php'; ?>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

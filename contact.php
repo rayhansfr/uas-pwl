@@ -1,3 +1,25 @@
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $form_contact_data = array(
+            'nama' => $_POST['nama'],
+            'email' => $_POST['email'],
+            'phone' => $_POST['phone'],
+            'subject' => $_POST['subject'],
+            'message' => $_POST['message']
+        );
+
+        $existingData = file_get_contents('form_contact_data.json');
+        $existingData = json_decode($existingData, true);
+
+        $existingData[] = $form_contact_data;
+
+        file_put_contents('form_contact_data.json', json_encode($existingData, JSON_PRETTY_PRINT));
+        
+        echo json_encode(['status' => 'success']);
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,7 +56,7 @@
             <div class="row gy-4 gy-md-5 gy-lg-0 align-items-md-center mb-4">
                 <div class="col-12 col-lg-6">
                     <div class="border overflow-hidden">
-                        <form action="#!">
+                        <form method="post" id="form_contact">
                             <div class="row gy-4 gy-xl-5 p-4 p-xl-5">
                                 <!-- FORM NAMA -->
                                 <div class="col-12">
@@ -81,7 +103,7 @@
                                 <!-- BUTTON SUBMIT -->
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button class="btn btn-cust btn-lg" type="submit">Kirim Pesan</button>
+                                        <button class="btn btn-cust btn-lg" type="submit" id="submitBtn">Kirim Pesan</button>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +200,38 @@
 
     <?php include 'components/footer.php'; ?>
 
-    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('Document is ready');
+
+            $('#form_contact').submit(function (e) {
+                console.log('Form submit event triggered');
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'contact.php',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        console.log('Raw Response:', response);
+                        var result = JSON.parse(response);
+                        if (result.status === 'success') {
+                            console.log('Pesan berhasil dikirim!');
+                            alert('Pesan berhasil dikirim!');
+                            $('#form_contact')[0].reset();
+                        } else {
+                            console.log('Pesan gagal dikirim!');
+                            alert('Pesan gagal dikirim!');
+                        }
+                    },
+                    error: function () {
+                        console.log('Error during AJAX request');
+                        alert('Error during AJAX request!');
+                    }
+                });
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
