@@ -1,4 +1,5 @@
-.navbar-brand, .title {
+.navbar-brand,
+.title {
     font-family: 'Cormorant Garamond', serif;
 }
 
@@ -41,9 +42,20 @@ body {
 .btn-cust:hover {
     background-color: #fff;
     color: #163153;
-    border: 1px solid #163153; 
+    border: 1px solid #163153;
 }
 
 .footer-sm {
     background-color: #163153;
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
 }
