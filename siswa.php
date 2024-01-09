@@ -4,6 +4,7 @@ if (!isset($_SESSION["login"])) { // cek apakah user telah melakukan login atau 
     header("Location: login.php"); // jika belum maka arahkan ke halaman login
 }
 $username = $_SESSION["username"]; // insialisasi varibale username dari session saat ini
+$table = "siswa";
 $currentPage = 'siswa.php';
 
 include "controller/connection.php";
@@ -43,14 +44,14 @@ $menuItems = [
     <title>Dashboard</title>
 </head>
 
-<body>
+<body class="vh-100">
     <?php include "components/sideNavbar.php" ?>
 
     <main class="flex-shrink-0">
         <!-- Your content goes here -->
         <h1 class="mt-2">List Siswa</h1>
 
-        <div class="table-responsive-sm">
+        <div class="table-responsive">
             <form action="" method="GET">
                 <div class="input-group mt-5">
                     <input type="search" class="form-control rounded" name="search" placeholder="Cari Berdasarkan Nama atau NISN" aria-label="Search" aria-describedby="search-addon" />
@@ -65,7 +66,8 @@ $menuItems = [
                         <th scope="col">Nama Lengkap</th>
                         <th scope="col">NISN</th>
                         <th scope="col">Tingkat/Rombel</th>
-                        <th scope="col">Tempat, Tanggal Lahir</th>
+                        <th scope="col">Tempat</th>
+                        <th scope="col">Tanggal Lahir</th>
                         <th scope="col">Jenis Kelamin</th>
                         <th scope="col">Agama</th>
                         <th scope="col">Alamat Peserta Didik</th>
@@ -82,7 +84,7 @@ $menuItems = [
                         $search = mysqli_real_escape_string($conn, $_GET['search']); // amankan string sebelum digunakan dalam query
                         // ambil data dari tabel dengan kolom nama yang mengandung nilai yang sesuai dengan nilai pada variable search
                         // lalu atur jumlah baris yang ditampilkan menggunakan LIMIT dengan variable limit (3)
-                        $sql_fetch = "SELECT * FROM siswa WHERE nama LIKE '%$search%' OR nisn = '$search' LIMIT $limit OFFSET $offset";
+                        $sql_fetch = "SELECT * FROM siswa WHERE Nama_Lengkap LIKE '%$search%' OR nisn = '$search' LIMIT $limit OFFSET $offset";
                         $query = mysqli_query($conn, $sql_fetch);
                     } else { // jika user tidak menggunakan fitur seearch maka lakukan code block dibawah
                         // ambil data dari tabel dengan LIMIT untuk mengatur jumlah baris yang ditampilkan
@@ -94,19 +96,27 @@ $menuItems = [
                     while ($row = mysqli_fetch_array($query)) {
                     ?>
                         <tr>
-                            <td><?php echo $number++ ?></td>
-                            <td><?php echo $row['Nama_Lengkap'] ?></td>
-                            <td><?php echo $row['NISN']; ?></td>
-                            <td><?php echo $row['Tingkat_Rombel']; ?></td>
-                            <td><?php echo $row['Tempat_Lahir'] . ', ' . $row['Tanggal_Lahir']; ?></td>
-                            <td><?php echo $row['Jenis_Kelamin']; ?></td>
-                            <td><?php echo $row['Agama']; ?></td>
-                            <td><?php echo $row['Alamat_Peserta_Didik']; ?></td>
-
-                            <td>
-                                <a class="btn btn-primary" href="detail.php?id=<?php echo $row['id']; ?>">Detail</a>
-                                <a class="btn btn-success" href="edit.php?id=<?php echo $row['id']; ?>">Edit</a>
-                                <a class="btn btn-danger" href="delete.php?id=<?php echo $row['id']; ?>">Delete</a>
+                            <td class="col"><?php echo $number++ ?></td>
+                            <td class="col"><?php echo $row['Nama_Lengkap'] ?></td>
+                            <td class="col"><?php echo $row['NISN']; ?></td>
+                            <td class="col"><?php echo $row['Tingkat_Rombel']; ?></td>
+                            <td class="col"><?php echo $row['Tempat_Lahir']; ?></td>
+                            <td class="col"><?php echo $row['Tanggal_Lahir']; ?></td>
+                            <td class="col"><?php echo $row['Jenis_Kelamin']; ?></td>
+                            <td class="col"><?php echo $row['Agama']; ?></td>
+                            <td class="col"><?php echo $row['Alamat_Peserta_Didik']; ?></td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="btn btn-success" href="edit.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-edit ?>"></i></a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-primary" href="detail.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-eye ?>"></i></a>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-danger" onclick="deleteData(<?php echo $row['id']; ?>, '<?php echo $table; ?>')"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php
@@ -126,7 +136,7 @@ $menuItems = [
                                 if ($i == $page) {
                                     echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li class="page-item"><a class="page-link" href="index.php?page=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -153,6 +163,9 @@ $menuItems = [
             </div>
         </div>
     </div>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/0caa192f1e.js" crossorigin="anonymous"></script>
     <!-- bootstrap -->

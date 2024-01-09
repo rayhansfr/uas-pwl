@@ -13,7 +13,7 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <div class="dropdown user-center">
+    <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <?php
             echo '<strong>' . $username . '</strong>'

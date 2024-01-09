@@ -5,6 +5,7 @@ if (!isset($_SESSION["login"])) { // cek apakah user telah melakukan login atau 
     header("Location: login.php"); // jika belum maka arahkan ke halaman login
 }
 $username = $_SESSION["username"]; // insialisasi varibale username dari session saat ini
+$table = "pendaftar";
 
 include "controller/connection.php";
 
@@ -52,7 +53,7 @@ $menuItems = [
         <div class="table-responsive-sm">
             <form action="" method="GET">
                 <div class="input-group mt-5">
-                    <input type="search" class="form-control rounded" name="search" placeholder="Cari Berdasarkan Nama atau NISN" aria-label="Search" aria-describedby="search-addon" />
+                    <input type="search" class="form-control rounded" name="search" placeholder="Cari Berdasarkan Nama atau NIK" aria-label="Search" aria-describedby="search-addon" />
                     <button type="submit" value="search" class="btn btn-primary">Search</button>
                     <button type="submit" value="clear" class="btn btn-outline-primary">Reset</button>
                 </div>
@@ -84,35 +85,45 @@ $menuItems = [
                         $search = mysqli_real_escape_string($conn, $_GET['search']); // amankan string sebelum digunakan dalam query
                         // ambil data dari tabel dengan kolom nama yang mengandung nilai yang sesuai dengan nilai pada variable search
                         // lalu atur jumlah baris yang ditampilkan menggunakan LIMIT dengan variable limit (3)
-                        $sql_fetch = "SELECT * FROM pendaftar WHERE nama LIKE '%$search%' OR nisn = '$search' LIMIT $limit OFFSET $offset";
+                        $sql_fetch = "SELECT * FROM pendaftar WHERE Nama_Lengkap LIKE '%$search%' OR NIK = '$search' AND Status = 0 LIMIT $limit OFFSET $offset";
                         $query = mysqli_query($conn, $sql_fetch);
                     } else { // jika user tidak menggunakan fitur seearch maka lakukan code block dibawah
                         // ambil data dari tabel dengan LIMIT untuk mengatur jumlah baris yang ditampilkan
-                        $sql_fetch = "SELECT * FROM pendaftar LIMIT $limit OFFSET $offset";
+                        $sql_fetch = "SELECT * FROM pendaftar WHERE Status = 0 LIMIT $limit OFFSET $offset";
                         $query = mysqli_query($conn, $sql_fetch);
                     }
                     $number = $offset + 1;
-                    // lakukan perulangan untuk menampilkan data dari query yang dijalankan sebelumnya
-                    while ($row = mysqli_fetch_array($query)) {
+                    if (mysqli_num_rows($query) === 0) {
+                        echo '<h1 class="text-center">Tidak ada Data</h1>';
+                    } else {
+                        // lakukan perulangan untuk menampilkan data dari query yang dijalankan sebelumnya
+                        while ($row = mysqli_fetch_array($query)) {
                     ?>
-                        <tr>
-                            <td><?php echo $number++ ?></td>
-                            <td><?php echo $row['Nama_Lengkap'] ?></td>
-                            <td><?php echo $row['NIK']; ?></td>
-                            <td><?php echo $row['Tempat_Lahir'] . ', ' . $row['Tanggal_Lahir']; ?></td>
-                            <td><?php echo $row['Jenis_Kelamin']; ?></td>
-                            <td><?php echo $row['Agama']; ?></td>
-                            <td><?php echo $row['Alamat_Peserta_Didik']; ?></td>
-                            <td><?php echo $row['Ayah']; ?></td>
-                            <td><?php echo $row['Pekerjaan_Ayah']; ?></td>
-                            <td><?php echo $row['Ibu']; ?></td>
-                            <td><?php echo $row['Pekerjaan_Ibu']; ?></td>
-                            <td>
-                                <a class="btn btn-primary" href="approve.php?id=<?php echo $row['id']; ?>">Terima</a>
-                                <a class="btn btn-danger" href="decline.php?id=<?php echo $row['id']; ?>">Tolak</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?php echo $number++ ?></td>
+                                <td><?php echo $row['Nama_Lengkap'] ?></td>
+                                <td><?php echo $row['NIK']; ?></td>
+                                <td><?php echo $row['Tempat_Lahir'] . ', ' . $row['Tanggal_Lahir']; ?></td>
+                                <td><?php echo $row['Jenis_Kelamin']; ?></td>
+                                <td><?php echo $row['Agama']; ?></td>
+                                <td><?php echo $row['Alamat_Peserta_Didik']; ?></td>
+                                <td><?php echo $row['Ayah']; ?></td>
+                                <td><?php echo $row['Pekerjaan_Ayah']; ?></td>
+                                <td><?php echo $row['Ibu']; ?></td>
+                                <td><?php echo $row['Pekerjaan_Ibu']; ?></td>
+                                <td>
+                                    <div class="row gap-0">
+                                        <div class="col">
+                                            <button class="btn btn-success" onclick="approveData(<?php echo $row['id']; ?>)"><i class="fa-solid fa-check"></i></button>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-danger" onclick="deleteData(<?php echo $row['id']; ?>, '<?php echo $table; ?>')"><i class="fa-solid fa-xmark"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                     <?php
+                        }
                     }
                     ?>
                 </tbody>
@@ -122,14 +133,14 @@ $menuItems = [
                     <nav aria-label="pagination">
                         <ul class="pagination align-items-center">
                             <?php
-                            // Hitung total halaman yang diperlukan (setiap halaman 3 data)
-                            $totalPages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM pendaftar")) / $limit);
+                            // Hitung total halaman yang diperlukan (setiap halaman maksimal 7 data)
+                            $totalPages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM pendaftar WHERE Status = 0")) / $limit);
                             // lakukan perulangan untuk membuat pagination sesuai dengan jumlah halaman
                             for ($i = 1; $i <= $totalPages; $i++) {
                                 if ($i == $page) {
                                     echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li class="page-item"><a class="page-link" href="index.php?page=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="page-item"><a class="page-link" href="pendaftar.php?page=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -156,8 +167,11 @@ $menuItems = [
             </div>
         </div>
     </div>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/0caa192f1e.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
