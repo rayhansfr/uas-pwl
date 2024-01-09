@@ -64,7 +64,7 @@
           <div class="col">
             <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/outing1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Outing Class Oceana Dream</h2>
+                <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Outing Class Ocean Dream</h2>
               </div>
             </div>
           </div>
