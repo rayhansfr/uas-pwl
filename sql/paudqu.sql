@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2024 at 02:12 AM
+-- Generation Time: Jan 10, 2024 at 02:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `paudqu`
 --
+CREATE DATABASE IF NOT EXISTS `paudqu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `paudqu`;
 
 -- --------------------------------------------------------
 
