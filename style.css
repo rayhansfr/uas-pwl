@@ -59,3 +59,13 @@ body {
 .card-registration .select-arrow {
     top: 13px;
 }
+
+.zoom-card {
+    transition: background-size 0.3s ease-out;
+    background-size: 100%;
+}
+
+.zoom-card:hover {
+    background-size: 120%;
+    /* Adjust the zoom level as needed */
+}
