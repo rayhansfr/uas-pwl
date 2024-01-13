@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) { // jika button register ditekan maka lakukan code
 function alert($type, $message)
 {
     echo
-    "<div class=\"alert alert-$type alert-dismissible fade show\" role=\"alert\">
+    "<div class=\"alert alert-$type alert-dismissible fixed-top m-2fade show\" role=\"alert\">
         <strong>$message</strong> 
         <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
     </div>";
@@ -105,13 +105,13 @@ function alert($type, $message)
                                     <!-- Confirm Password -->
                                     <div class="mb-3">
                                         <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Enter your password again" required>
+                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Enter your password again" required />
                                     </div>
                                     <!-- Captcha -->
                                     <div class="mb-3">
                                         <label for="captcha">Please enter the code shown in the image:</label>
                                         <img src="controller/captcha.php" alt="CAPTCHA Image">
-                                        <input type="text" id="captcha" name="captcha" required>
+                                        <input type="text" id="captcha" name="captcha" required />
                                     </div>
                                     <!-- Submit -->
                                     <button type="submit" name="submit" class="btn btn-primary btn-block mb-4">

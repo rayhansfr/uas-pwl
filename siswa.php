@@ -48,100 +48,117 @@ $menuItems = [
     <?php include "components/sideNavbar.php" ?>
 
     <main class="flex-shrink-0">
-        <!-- Your content goes here -->
-        <h1 class="mt-2">List Siswa</h1>
+        <div class="container mt-4 bg-white p-4 rounded">
+            <h1 class="mt-2">List Siswa</h1>
 
-        <div class="table-responsive">
-            <form action="" method="GET">
-                <div class="input-group mt-5">
-                    <input type="search" class="form-control rounded" name="search" placeholder="Cari Berdasarkan Nama atau NISN" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" value="search" class="btn btn-primary">Search</button>
-                    <button type="submit" value="clear" class="btn btn-outline-primary">Reset</button>
-                </div>
-            </form>
-            <table class="table table-info table-striped table-hover mt-2">
-                <thead class="table-success text-center">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nama Lengkap</th>
-                        <th scope="col">NISN</th>
-                        <th scope="col">Tingkat/Rombel</th>
-                        <th scope="col">Tempat</th>
-                        <th scope="col">Tanggal Lahir</th>
-                        <th scope="col">Jenis Kelamin</th>
-                        <th scope="col">Agama</th>
-                        <th scope="col">Alamat Peserta Didik</th>
-                        <th scope="col" class="table-danger">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $limit = 7; // inisialisasi variable limit untuk membatasi jumlah data yang ditamplkan dalam satu halaman
-                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Mengambil nomor halaman saat ini dari parameter URL
-                    $offset = ($page - 1) * $limit; // Menghitung nilai offset
-                    // Cek apakah user menggunakan fitur search
-                    if (isset($_GET['search']) && !empty($_GET['search'])) {
-                        $search = mysqli_real_escape_string($conn, $_GET['search']); // amankan string sebelum digunakan dalam query
-                        // ambil data dari tabel dengan kolom nama yang mengandung nilai yang sesuai dengan nilai pada variable search
-                        // lalu atur jumlah baris yang ditampilkan menggunakan LIMIT dengan variable limit (3)
-                        $sql_fetch = "SELECT * FROM siswa WHERE Nama_Lengkap LIKE '%$search%' OR nisn = '$search' LIMIT $limit OFFSET $offset";
-                        $query = mysqli_query($conn, $sql_fetch);
-                    } else { // jika user tidak menggunakan fitur seearch maka lakukan code block dibawah
-                        // ambil data dari tabel dengan LIMIT untuk mengatur jumlah baris yang ditampilkan
-                        $sql_fetch = "SELECT * FROM siswa LIMIT $limit OFFSET $offset";
-                        $query = mysqli_query($conn, $sql_fetch);
-                    }
-                    $number = $offset + 1;
-                    // lakukan perulangan untuk menampilkan data dari query yang dijalankan sebelumnya
-                    while ($row = mysqli_fetch_array($query)) {
-                    ?>
+            <div class="table-responsive">
+                <form action="" method="GET">
+                    <div class="input-group mt-5">
+                        <input type="search" class="form-control rounded" name="search" placeholder="Cari Berdasarkan Nama atau NISN" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit" value="search" class="btn btn-primary">Search</button>
+                        <button type="submit" value="clear" class="btn btn-outline-primary">Reset</button>
+                    </div>
+                </form>
+                <table class="table table-light table-hover mt-2">
+                    <thead class="thead-dark text-center">
                         <tr>
-                            <td class="col"><?php echo $number++ ?></td>
-                            <td class="col"><?php echo $row['Nama_Lengkap'] ?></td>
-                            <td class="col"><?php echo $row['NISN']; ?></td>
-                            <td class="col"><?php echo $row['Tingkat_Rombel']; ?></td>
-                            <td class="col"><?php echo $row['Tempat_Lahir']; ?></td>
-                            <td class="col"><?php echo $row['Tanggal_Lahir']; ?></td>
-                            <td class="col"><?php echo $row['Jenis_Kelamin']; ?></td>
-                            <td class="col"><?php echo $row['Agama']; ?></td>
-                            <td class="col"><?php echo $row['Alamat_Peserta_Didik']; ?></td>
-                            <td class="col-2">
-                                <div class="row">
-                                    <div class="col">
-                                        <a class="btn btn-success" href="edit.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-edit ?>"></i></a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-primary" href="detail.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-eye ?>"></i></a>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-danger" onclick="deleteData(<?php echo $row['id']; ?>, '<?php echo $table; ?>')"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </td>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama Lengkap</th>
+                            <th scope="col">NISN</th>
+                            <th scope="col">Tingkat/Rombel</th>
+                            <th scope="col">Alamat Peserta Didik</th>
+                            <th scope="col" class="table-primary">Action</th>
                         </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="col">
-                    <nav aria-label="pagination">
-                        <ul class="pagination align-items-center">
-                            <?php
-                            // Hitung total halaman yang diperlukan (setiap halaman 3 data)
-                            $totalPages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM siswa")) / $limit);
-                            // lakukan perulangan untuk membuat pagination sesuai dengan jumlah halaman
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                if ($i == $page) {
-                                    echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
-                                } else {
-                                    echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . $i . '">' . $i . '</a></li>';
-                                }
+                    </thead>
+                    <tbody>
+                        <?php
+                        $limit = 7; // inisialisasi variable limit untuk membatasi jumlah data yang ditamplkan dalam satu halaman
+                        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Mengambil nomor halaman saat ini dari parameter URL
+                        $offset = ($page - 1) * $limit; // Menghitung nilai offset
+                        // Cek apakah user menggunakan fitur search
+                        if (isset($_GET['search']) && !empty($_GET['search'])) {
+                            $search = mysqli_real_escape_string($conn, $_GET['search']); // amankan string sebelum digunakan dalam query
+                            // ambil data dari tabel dengan kolom nama yang mengandung nilai yang sesuai dengan nilai pada variable search
+                            // lalu atur jumlah baris yang ditampilkan menggunakan LIMIT dengan variable limit (3)
+                            $sql_fetch = "SELECT * FROM siswa WHERE Nama_Lengkap LIKE '%$search%' OR nisn = '$search' LIMIT $limit OFFSET $offset";
+                            $query = mysqli_query($conn, $sql_fetch);
+                        } else { // jika user tidak menggunakan fitur seearch maka lakukan code block dibawah
+                            // ambil data dari tabel dengan LIMIT untuk mengatur jumlah baris yang ditampilkan
+                            $sql_fetch = "SELECT * FROM siswa LIMIT $limit OFFSET $offset";
+                            $query = mysqli_query($conn, $sql_fetch);
+                        }
+                        $number = $offset + 1;
+                        if (mysqli_num_rows($query) === 0) {
+                            echo '<h1 class="text-center mt-5 mb-5">Tidak ada Data</h1>';
+                        } else {
+                            // lakukan perulangan untuk menampilkan data dari query yang dijalankan sebelumnya
+                            while ($row = mysqli_fetch_array($query)) {
+                        ?>
+                                <tr>
+                                    <td class="col"><?php echo $number++ ?></td>
+                                    <td class="col"><?php echo $row['Nama_Lengkap'] ?></td>
+                                    <td class="col"><?php echo $row['NISN']; ?></td>
+                                    <td class="col"><?php echo $row['Tingkat_Rombel']; ?></td>
+                                    <td class="col"><?php echo $row['Alamat_Peserta_Didik']; ?></td>
+                                    <td class="col-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a class="btn btn-success" href="edit.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-edit ?>"></i></a>
+                                            </div>
+                                            <div class="col">
+                                                <a class="btn btn-primary" href="detail.php?id=<?php echo $row['id']; ?>"><i class="fas fa-solid fa-eye ?>"></i></a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger" onclick="deleteData(<?php echo $row['id']; ?>, '<?php echo $table; ?>')"><i class="fa-solid fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                        <?php
                             }
-                            ?>
-                        </ul>
-                    </nav>
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="pagination">
+                            <ul class="pagination align-items-center justify-content-center">
+                                <?php
+                                $totalPages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM siswa")) / $limit);
+                                $numLinks = 2; // Number of links to display
+                                // Show the Previous button
+                                if ($page > 1) {
+                                    echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . ($page - 1) . '">&lt;</a></li>';
+                                } else {
+                                    echo '<li class="page-item disabled"><span class="page-link">&lt;</span></li>';
+                                }
+                                // Display page numbers
+                                $start = max(1, min($page - floor($numLinks / 2), $totalPages - $numLinks + 1));
+                                $end = $start + $numLinks - 1;
+
+                                for ($i = $start; $i <= $end; $i++) {
+                                    if ($i == $page) {
+                                        echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
+                                    } else {
+                                        echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . $i . '">' . $i . '</a></li>';
+                                    }
+                                }
+                                // Show ellipsis and the last page link if needed
+                                if ($end < $totalPages) {
+                                    echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                                    echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+                                }
+                                // Show the Next button
+                                if ($page < $totalPages) {
+                                    echo '<li class="page-item"><a class="page-link" href="siswa.php?page=' . ($page + 1) . '">&gt;</a></li>';
+                                } else {
+                                    echo '<li class="page-item disabled"><span class="page-link">&gt;</span></li>';
+                                }
+                                ?>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,6 @@
 include "connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Handle the AJAX request
     $id = $_POST['id'];
     $action = $_POST['action'];
 
@@ -11,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Insert data into 'siswa' table with additional columns
         // Optionally, update 'pendaftar' to mark the data as approved
         $dataPendaftarQuery = "SELECT Nama_Lengkap, NIK, Tempat_Lahir, Tanggal_Lahir, Jenis_Kelamin,
-        Agama, Status_dalam_keluarga, Anak_ke, Alamat_Peserta_Didik, Ayah, Ibu, 
+        Agama, Anak_ke, Alamat_Peserta_Didik, Ayah, Ibu, 
         Alamat_Orang_Tua, Pekerjaan_Ayah, Pekerjaan_Ibu FROM pendaftar WHERE id = $id";
 
         $dataPendaftarResult = mysqli_query($conn, $dataPendaftarQuery);
@@ -24,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tanggalLahir = $dataPendaftar['Tanggal_Lahir'];
             $jenisKelamin = $dataPendaftar['Jenis_Kelamin'];
             $agama = $dataPendaftar['Agama'];
-            $statusKeluarga = $dataPendaftar['Status_dalam_keluarga'];
             $anakKe = $dataPendaftar['Anak_ke'];
             $alamatPesertaDidik = $dataPendaftar['Alamat_Peserta_Didik'];
             $ayah = $dataPendaftar['Ayah'];
@@ -44,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Tanggal_Lahir,
             Jenis_Kelamin,
             Agama,
-            Status_dalam_keluarga,
             Anak_ke,
             Alamat_Peserta_Didik,
             Ayah,
@@ -57,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Tingkat_Rombel
           )
           VALUES
-            (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '', '', '')";
+            (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '', '', '')";
 
         $stmt = mysqli_prepare($conn, $query);
 
@@ -65,14 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Bind parameters
             mysqli_stmt_bind_param(
                 $stmt,
-                "ssssssssssssss",
+                "sssssssssssss",
                 $namaLengkap,
                 $nik,
                 $tempatLahir,
                 $tanggalLahir,
                 $jenisKelamin,
                 $agama,
-                $statusKeluarga,
                 $anakKe,
                 $alamatPesertaDidik,
                 $ayah,
@@ -87,9 +83,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Check for success
             if (mysqli_stmt_affected_rows($stmt) > 0) {
-                //  update 'pendaftar' table
-                $updateQuery = "UPDATE pendaftar SET status = 1 WHERE id = $id";
-                mysqli_query($conn, $updateQuery);
+                $deleteQuery = "DELETE FROM pendaftar WHERE id = $id";
+
+                $result = mysqli_query($conn, $deleteQuery);
+
+                if ($result) {
+                    echo "Data deleted successfully.";
+                } else {
+                    echo "Error: " . mysqli_error($conn);
+                }
                 echo "Data approved and inserted successfully.";
             } else {
                 echo "Error: " . mysqli_error($conn);

@@ -1,5 +1,5 @@
 <?php
-$currentPage = 'siswa.php';
+$currentPage = 'pendaftar.php';
 session_start(); // fungsi untuk memulai atau melanjutkan sesi yang sudah ada
 if (!isset($_SESSION["login"])) { // cek apakah user telah melakukan login atau belum
     header("Location: login.php"); // jika belum maka arahkan ke halaman login
@@ -73,7 +73,7 @@ $menuItems = [
 
     if (isset($_GET['id'])) {
         $studentId = $_GET['id'];
-        $sql_detail = "SELECT * FROM siswa WHERE id = $studentId";
+        $sql_detail = "SELECT * FROM pendaftar WHERE id = $studentId";
         $result_detail = mysqli_query($conn, $sql_detail);
         $studentData = mysqli_fetch_assoc($result_detail);
 
@@ -101,31 +101,20 @@ $menuItems = [
 
     <body>
         <main class="flex-shrink-0">
-            <div class="container mt-4 bg-white p-4 rounded">
-                <h1 class="mb-4">Detail Siswa</h1>
+            <div class="container mt-4 bg-white p-4 rounded ">
+                <h1 class="mb-4">Detail Pendaftar</h1>
+
                 <div class="row justify-content-center g-2">
                     <div class="col">
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <th scope="row" class="w-25">Nama Lengkap</th>
+                                    <th scope="row" class="w-50">Nama Lengkap</th>
                                     <td><?php echo $studentData['Nama_Lengkap']; ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">NIK</th>
                                     <td><?php echo $studentData['NIK']; ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">NIS</th>
-                                    <td><?php echo $studentData['NIS']; ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">NISN</th>
-                                    <td><?php echo $studentData['NISN']; ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Tingkat/Rombel</th>
-                                    <td><?php echo $studentData['Tingkat_Rombel']; ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Tempat Lahir</th>
@@ -153,13 +142,12 @@ $menuItems = [
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                     <div class="col">
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <th scope="row">Nama Ayah</th>
+                                    <th scope="row" class="w-50">Nama Ayah</th>
                                     <td><?php echo $studentData['Ayah']; ?></td>
                                 </tr>
                                 <tr>
@@ -178,16 +166,30 @@ $menuItems = [
                                     <th scope="row">Alamat Orang Tua</th>
                                     <td><?php echo $studentData['Alamat_Orang_Tua']; ?></td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">No. Handphone</th>
+                                    <td><?php echo $studentData['noHP']; ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="row justify-content-center align-items-center g-2 w-50 mt-2 mb-3">
+                    <div class="col">
+                        <h6>Kartu Keluarga</h6>
+                        <a href="<?php echo $studentData['File_KK'] ?>">Lihat Disini</a>
+                    </div>
+                    <div class="col">
+                        <h6>KTP</h6>
+                        <a href="<?php echo $studentData['File_KTP'] ?>">Lihat Disini</a>
+                    </div>
+                    <div class="col">
+                        <h6>Foto</h6>
+                        <a href="<?php echo $studentData['File_Foto'] ?>">Lihat Disini</a>
+                    </div>
+                </div>
 
-
-
-
-
-                <p><a href="siswa.php" class="btn btn-primary">Kembali</a></p>
+                <p><a href="pendaftar.php" class="btn btn-primary">Kembali</a></p>
             </div>
         </main>
 
