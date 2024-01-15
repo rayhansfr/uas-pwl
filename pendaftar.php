@@ -129,7 +129,7 @@ $menuItems = [
                             <ul class="pagination align-items-center justify-content-center">
                                 <?php
                                 $totalPages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM pendaftar")) / $limit);
-                                $numLinks = 2; // Number of links to display
+                                $numLinks = 2;
                                 // Show the Previous button
                                 if ($page > 1) {
                                     echo '<li class="page-item"><a class="page-link" href="pendaftar.php?page=' . ($page - 1) . '">&lt;</a></li>';
