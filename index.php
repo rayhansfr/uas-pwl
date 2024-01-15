@@ -16,12 +16,12 @@
     <section id="hero">
       <div class="container">
           <div class="d-flex align-items-center justify-content-end min-vh-100">
-              <div class="text-end text-white col-sm-10">
+              <!-- <div class="text-end text-white col-sm-10">
                   <div class="title">
                     <h1 class="display-5 fw-bold lh-1 mb-3">PAUDQu Assabiqunal Awwalun</h1>
                   </div>
                   <p class="lead row-cols-lg-2">Mendidik Generasi Unggul, Cerdas, dan Qurani untuk Membangun Masa Depan Berkualitas</p>
-              </div>
+              </div> -->
           </div>
       </div>
     </section>

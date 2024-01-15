@@ -8,7 +8,7 @@ body {
 }
 
 #hero {
-    background: url(assets/bg-home.jpg);
+    background: url(assets/hero.png);
     background-size: cover;
     position: relative;
     height: 100vh;
