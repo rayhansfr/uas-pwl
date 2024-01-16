@@ -193,7 +193,7 @@ body {
 }
 
 #hero {
-    background: url(assets/bg-home.jpg);
+    background: url(assets/hero.png);
     background-size: cover;
     position: relative;
     height: 100vh;
@@ -245,4 +245,13 @@ body {
     top: 13px;
 }
 
+.zoom-card {
+    transition: background-size 0.3s ease-out;
+    background-size: 100%;
+}
+
+.zoom-card:hover {
+    background-size: 120%;
+    /* Adjust the zoom level as needed */
+}
 }

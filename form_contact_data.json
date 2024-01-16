@@ -5,5 +5,12 @@
         "phone": "081290415564",
         "subject": "Tes",
         "message": "Ini tes ajax"
+    },
+    {
+        "nama": "Hilmiyatul Asna",
+        "email": "hilmiyatulasna63@gmail.com",
+        "phone": "089630593213",
+        "subject": "Tes",
+        "message": "Tes"
     }
 ]

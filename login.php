@@ -37,7 +37,7 @@ if (isset($_POST["login"])) { // jika button login ditekan maka lakukan code blo
 function alert($type, $message)
 {
     echo
-    "<div class=\"alert alert-$type alert-dismissible fade show\" role=\"alert\">
+    "<div class=\"alert alert-$type alert-dismissible fixed-top m-2 fade show\" role=\"alert\">
         <strong>$message</strong> 
         <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
     </div>";

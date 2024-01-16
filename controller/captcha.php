@@ -27,3 +27,4 @@ function generateRandomString($length = 6)
     }
     return $randomString;
 }
+?>

@@ -16,12 +16,12 @@
     <section id="hero">
       <div class="container">
           <div class="d-flex align-items-center justify-content-end min-vh-100">
-              <div class="text-end text-white col-sm-10">
+              <!-- <div class="text-end text-white col-sm-10">
                   <div class="title">
                     <h1 class="display-5 fw-bold lh-1 mb-3">PAUDQu Assabiqunal Awwalun</h1>
                   </div>
-                  <p class="lead row-cols-lg-2">Mendidik Generasi Unggul, Cerdas, dan Qurani untuk Membangun Masa Depan Berkualitas</p>
-              </div>
+                  <p class="lead row-cols-lg-2">Mendidik Generasi Unggul, Cerdas, dan Qurani untuk Membangun Masa Depan Berkualitas<
+              </div> -->
           </div>
       </div>
     </section>
@@ -56,7 +56,7 @@
         
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/kbm1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/kbm1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Kegiatan Belajar Mengajar</h2>
               </div>
@@ -64,7 +64,7 @@
           </div>
 
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/outing1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/outing1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Outing Class Ocean Dream</h2>
               </div>
@@ -72,7 +72,7 @@
           </div>
 
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/manasik1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/manasik1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Praktik Manasik Haji</h2>
               </div>
@@ -80,7 +80,7 @@
           </div>
 
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/palestine1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/palestine1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Celengan Peduli Palestina</h2>
               </div>
@@ -88,7 +88,7 @@
           </div>
 
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/hutri1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/hutri1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Perayaan HUT RI</h2>
               </div>
@@ -96,7 +96,7 @@
           </div>
 
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('assets/galeri/dhuha1.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg zoom-card" style="background-image: url('assets/galeri/dhuha1.jpg');">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h2 class="pb-5 mb-5 mt-4 display-6 lh-1 fw-bold">Pembiasaan Sholat Dhuha</h2>
               </div>
